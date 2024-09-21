@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +32,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TaskManagerTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    TaskCompletedScreen()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    TaskCompletedScreen(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -43,34 +45,44 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TaskCompletedScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun TaskCompletedScreen(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.background
     ) {
-        Image(
-            painter = painterResource(R.drawable.ic_task_completed),
-            contentDescription = null
-        )
-        Text(
-            text = stringResource(R.string.all_task_completed),
-            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = stringResource(R.string.nice_work),
-            fontSize = 16.sp
-        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_task_completed), contentDescription = null
+            )
+            Text(
+                text = stringResource(R.string.all_task_completed),
+                modifier = modifier.padding(top = 24.dp, bottom = 8.dp),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.nice_work), fontSize = 16.sp
+            )
+        }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TaskManagerThemePreview() {
     TaskManagerTheme {
-        TaskCompletedScreen()
+        Scaffold(
+            modifier = Modifier.fillMaxSize()
+        ) { innerPadding ->
+            TaskCompletedScreen(
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
 }
