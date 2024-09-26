@@ -91,7 +91,7 @@ fun TaskCompletedScreen(
 fun TaskCompletedText(
     text: String,
     modifier: Modifier = Modifier,
-    fontWeight: FontWeight = FontWeight.Normal,
+    fontWeight: FontWeight? = null,
     fontSize: TextUnit = TextUnit.Unspecified
 ) {
     Text(
